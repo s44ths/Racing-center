@@ -1,0 +1,146 @@
+
+CREATE TABLE Fin_Verdict
+(
+	fv_id                INTEGER NOT NULL,
+	req_id               INTEGER NOT NULL,
+	s_id                 INTEGER NOT NULL,
+	Verdict              TINYINT NOT NULL
+);
+
+
+
+ALTER TABLE Fin_Verdict
+ADD PRIMARY KEY (fv_id);
+ALTER TABLE  `Fin_Verdict` CHANGE  `fv_id`  `fv_id` INTEGER AUTO_INCREMENT;
+
+
+
+CREATE TABLE Race
+(
+	r_id                 INTEGER NOT NULL,
+	RaceName             VARCHAR(50) NOT NULL,
+	RaceInfo             TEXT NOT NULL
+);
+
+
+
+ALTER TABLE Race
+ADD PRIMARY KEY (r_id);
+ALTER TABLE  `Race` CHANGE  `r_id`  `r_id` INTEGER AUTO_INCREMENT;
+
+
+
+CREATE TABLE Request
+(
+	req_id               INTEGER NOT NULL,
+	Model                VARCHAR(80) NULL,
+	Rollcage             TINYINT NOT NULL,
+	Power                FLOAT NOT NULL,
+	BeltType             VARCHAR(50) NOT NULL,
+	Tuning               TINYINT NOT NULL,
+	Tire                 FLOAT NOT NULL,
+	sender_id            INTEGER NOT NULL,
+	r_id                 INTEGER NOT NULL
+);
+
+
+
+ALTER TABLE Request
+ADD PRIMARY KEY (req_id);
+ALTER TABLE  `Request` CHANGE  `req_id`  `req_id` INTEGER AUTO_INCREMENT;
+
+
+
+CREATE TABLE S_Verdict
+(
+	sv_id                INTEGER NOT NULL,
+	req_id               INTEGER NOT NULL,
+	sec_id               INTEGER NOT NULL
+);
+
+
+
+ALTER TABLE S_Verdict
+ADD PRIMARY KEY (sv_id);
+ALTER TABLE  `S_Verdict` CHANGE  `sv_id`  `sv_id` INTEGER AUTO_INCREMENT;
+
+
+
+CREATE TABLE T_Verdict
+(
+	tv_id                INTEGER NOT NULL,
+	req_id               INTEGER NOT NULL,
+	tech_id              INTEGER NOT NULL,
+	TOResult             TINYINT NOT NULL,
+	CarType              VARCHAR(80) NOT NULL
+);
+
+
+
+ALTER TABLE T_Verdict
+ADD PRIMARY KEY (tv_id);
+ALTER TABLE  `T_Verdict` CHANGE  `tv_id`  `tv_id` INTEGER AUTO_INCREMENT;
+
+
+
+CREATE TABLE Users
+(
+	id                   INTEGER NOT NULL,
+	LastName             VARCHAR(100) NOT NULL,
+	FirstName            VARCHAR(100) NOT NULL,
+	MiddleName           VARCHAR(100) NULL,
+	Login                VARCHAR(20) NOT NULL,
+	Password             VARCHAR(20) NOT NULL,
+	StartDate            DATE NOT NULL,
+	Equipment            VARCHAR(200) NOT NULL,
+	Points               INTEGER NOT NULL,
+	Disquals             INTEGER NOT NULL,
+	Role                 TINYINT NOT NULL
+);
+
+
+
+ALTER TABLE Users
+ADD PRIMARY KEY (id);
+ALTER TABLE  `Users` CHANGE  `id`  `id` INTEGER AUTO_INCREMENT;
+
+
+ALTER TABLE Fin_Verdict
+ADD FOREIGN KEY R_7 (req_id) REFERENCES Request (req_id);
+
+
+
+ALTER TABLE Fin_Verdict
+ADD FOREIGN KEY R_9 (s_id) REFERENCES Users (id);
+
+
+
+ALTER TABLE Request
+ADD FOREIGN KEY R_1 (sender_id) REFERENCES Users (id);
+
+
+
+ALTER TABLE Request
+ADD FOREIGN KEY R_10 (r_id) REFERENCES Race (r_id);
+
+
+
+ALTER TABLE S_Verdict
+ADD FOREIGN KEY R_2 (req_id) REFERENCES Request (req_id);
+
+
+
+ALTER TABLE S_Verdict
+ADD FOREIGN KEY R_3 (sec_id) REFERENCES Users (id);
+
+
+
+ALTER TABLE T_Verdict
+ADD FOREIGN KEY R_4 (req_id) REFERENCES Request (req_id);
+
+
+
+ALTER TABLE T_Verdict
+ADD FOREIGN KEY R_5 (tech_id) REFERENCES Users (id);
+
+
